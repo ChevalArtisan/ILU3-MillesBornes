@@ -21,7 +21,4 @@ public class Parade extends Bataille {
 		return nomCarte.get(getType());
 	}
 
-	private Type getType() {
-		return type;
-	}
 }

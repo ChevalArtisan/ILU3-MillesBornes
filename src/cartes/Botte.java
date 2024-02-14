@@ -18,7 +18,5 @@ public class Botte extends Probleme{
 	
 	return nomCarte.get(getType());
 	}
-	private Type getType() {
-		return type;
-	}
+
 }
