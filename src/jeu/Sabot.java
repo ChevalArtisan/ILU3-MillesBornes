@@ -30,6 +30,7 @@ public class Sabot implements Iterable<Carte> {
 	private void ajouterCarte(Carte carte) {
 		if (nbCartes< cartes.length) {
 			cartes[nbCartes++]=carte;
+			nombreOperations++;
 		}
 		else {
 			throw new IndexOutOfBoundsException("Sabot plein");
