@@ -34,6 +34,10 @@ public class JeuDeCartes {
 		
 	}
 	
+	public void checkCount() {
+		//TODO 
+	}
+	
 	
 	
 }

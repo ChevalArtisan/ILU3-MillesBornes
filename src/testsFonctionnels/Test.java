@@ -11,6 +11,7 @@ import cartes.JeuDeCartes;
 import cartes.Parade;
 import cartes.Probleme.Type;
 import jeu.Sabot;
+import utils.Utils;
 
 public class Test {
 	public static void main(String[] args) {
@@ -34,10 +35,15 @@ public class Test {
 //		System.out.println(essence.equals(accident));
 		JeuDeCartes jeu=new JeuDeCartes();
 		ArrayList<Carte> cartes=jeu.getListeCartes();
-		for(Carte carte:cartes){
-			System.out.println(carte.toString());
-			
-		}
-		
+		System.out.println(cartes.size());
+		//		for(Carte carte:cartes){
+//			System.out.println(carte.toString());
+//			
+//		}
+//		System.out.println(utils.extraire(cartes));
+		ArrayList<Carte> cartes2 =(ArrayList<Carte>) Utils.melanger(cartes);
+		System.out.println(cartes2.size());
+		System.out.println(Utils.verifierMelange(cartes2, new JeuDeCartes().getListeCartes()));
+		System.out.println(Utils.rassembler(cartes2));
 	}
 }
