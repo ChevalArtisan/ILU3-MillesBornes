@@ -13,7 +13,7 @@ public class Borne extends Carte {
 		return getkm()+"bornes";
 	}
 
-	private int getkm() {
+	public int getkm() {
 		return km;
 	}
 	

@@ -31,7 +31,7 @@ public class JeuDeCartes {
 				listeCartes.add(carte);
 			}
 		}
-		
+		listeCartes= (ArrayList<Carte>) utils.Utils.melanger(listeCartes);
 	}
 	
 	public void checkCount() {

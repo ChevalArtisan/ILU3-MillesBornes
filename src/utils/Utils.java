@@ -52,23 +52,21 @@ public class Utils {
 //	        }  
 //	     
 //		return l;
-			LinkedList<T> res = (LinkedList<T>) l;
 
 	          int taille = l.size();  
-	        
-	          for (int i = 1; i < taille; i++)
-	          { 
-	               T t =l.get(i);  
-	               int j = i-1;  
-	               res.listIterator(i);
-	               while(j >= 0 && !l.get(j).equals(t))  
-	               {
-	                    res.descendingIterator();  
-	                    j--;  
-	               }  
-	               l.set(i, t); ; 
+	          List<T> res=new ArrayList<>();
+	          T current= l.get(0);
+	          res.add(current);
+	          
+	          for (int i = 1; i < taille; i++) {
+	          T next =l.get(i);
+	          if(next!=current) {
+	        	  res.add(next);
+	        	  current=next;
+	          }
+	          res.add(next);
 	        }  
-		
+	          return res;
 	}
 	
 	public static void verifierRassemblement() {
