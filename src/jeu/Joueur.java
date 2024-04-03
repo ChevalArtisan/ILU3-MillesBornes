@@ -1,8 +1,7 @@
 package jeu;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +10,7 @@ import cartes.Bataille;
 import cartes.Borne;
 import cartes.Botte;
 import cartes.Carte;
+import cartes.DebutLimite;
 import cartes.FinLimite;
 import cartes.Limite;
 import cartes.Parade;
@@ -19,25 +19,44 @@ import cartes.Probleme.Type;
 
 public class Joueur {
 	private String nom;
-	private List<Limite> limites;
-	private List<Bataille> bataille;
-	private Collection<Borne> bornes;
-	private Set<Botte> bottes;
+	private ZoneDeJeu zone;
 	private MainAsListe main;
 	
 	
 	public Joueur(String nom) {
 		super();
 		this.nom = nom;
-		limites=new ArrayList<>();
-		bataille=new ArrayList<>();
-		bornes =new ArrayList<>();
-		bottes=new HashSet<>();
+		this.zone= new ZoneDeJeu();
 		main=new MainAsListe();
 	}
 	
 	public void donner(Carte carte) {
 		main.prendre(carte);
+	}
+	
+	public boolean deposer(Carte c) {
+		if(c instanceof Borne) {
+			Borne borne=(Borne) c;
+			if((!estBloque())&&
+			(getKM()<1000)&&
+			(borne.getkm()<getLimite())) {
+				zone.getBornes().add(borne);
+				return true;	
+				}else {
+					return false;
+				}
+		}else if (c instanceof Botte) {
+			Botte botte = (Botte) c;
+			zone.getBottes().add(botte);
+			zone.getPileBataille().removeIf());
+			return true;
+		}else if (c instanceof DebutLimite) {
+			
+		}else if (c instanceof FinLimite) {
+			
+		}else if (c instanceof Bataille) {
+			
+		}else return false;
 	}
 	
 	public Carte prendreCarte(List<Carte> sabot) {
@@ -58,33 +77,37 @@ public class Joueur {
 	
 	public int getKM() {
 		int total=0;
-		for (Borne borne: bornes) {
+		for (Borne borne: zone.getBornes()) {
 			total+=borne.getkm();
 		}
 		return total;
 	}
 	public boolean estPrio() {
 		boolean isPrio = false;
-		for (Botte botte: bottes) {
+		for (Botte botte: zone.getBottes()) {
 			if (botte.getType()==Type.FEU)
 				isPrio=true;
 		}
 		return isPrio;
 	}
 	public int getLimite() {
-		
-		FinLimite fl=new FinLimite(1);
-		if(estPrio()||limites.isEmpty()||limites.get(limites.size()-1).equals(fl)) {
+		List<Limite> limites=zone.getPileLimite();
+		if(estPrio()||limites.isEmpty()||limites.get(limites.size()-1) instanceof FinLimite) {
 			return 200;
 		}else {
 			return 50;
 		}
 	}
-
+	
+	public ZoneDeJeu getZoneDeJeu() {
+		return this.zone;
+	}
 	
 
 	public boolean estBloque() {
 		   boolean prioritaire = estPrio();
+		   List<Bataille> bataille=zone.getPileBataille();
+		   Set<Botte> bottes = zone.getBottes();
 				if (bataille.isEmpty() && prioritaire) {
 					return false;
 				}
@@ -135,20 +158,29 @@ public class Joueur {
 	public Main getMain() {
 		return main;
 	}
-
-	public Set<Botte> getBottes() {
-		return bottes;
-	}
-
-	public List<Bataille> getBataille() {
-		return bataille;
-	}
-
-	public List<Limite> getLimites() {
-		return limites;
-	}
 	
-	public Collection<Borne> getBornes(){
-		return bornes;
+	public HashSet<Coup> coupsPossible(Set<Joueur> participants){
+		HashSet<Coup> res =new HashSet<>();
+		Coup coup;
+		for (Joueur joueur : participants) {
+			Iterator<Carte> it = main.iterator();
+			while(it.hasNext()) {
+				coup=new Coup(it.next(),joueur);
+				if(coup.estValide(this))
+					res.add(coup);
+			}
+		}	
+		return res;
+	}
+
+	
+	public HashSet<Coup> coupsDefausse(){
+		HashSet<Coup> res =new HashSet<>();
+		Iterator<Carte> it = main.iterator();
+		while(it.hasNext()) {
+			res.add(new Coup(it.next(),null));
+		}
+		return res;
+		
 	}
 }

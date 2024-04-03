@@ -39,21 +39,21 @@ public class Test {
 //		joueur.getLimites().add(lim);
 //		joueur.getBottes().add((Botte) asDuVolant);
 //		System.out.println(joueur.getLimite());
-		joueur.getBataille().add((new Attaque (1,Type.FEU)));
+		joueur.getZoneDeJeu().getPileBataille().add((new Attaque (1,Type.FEU)));
 		System.out.println(joueur.estBloque());
-		joueur.getBottes().add(new Botte(0, Type.FEU));
+		joueur.getZoneDeJeu().getBottes().add(new Botte(0, Type.FEU));
 		System.out.println(joueur.estBloque());
-		joueur.getBataille().add(new Attaque(0, Type.ACCIDENT));
+		joueur.getZoneDeJeu().getPileBataille().add(new Attaque(0, Type.ACCIDENT));
 		System.out.println(joueur.estBloque());
-		joueur.getBottes().add(new Botte(0, Type.ACCIDENT));
+		joueur.getZoneDeJeu().getBottes().add(new Botte(0, Type.ACCIDENT));
 		System.out.println(joueur.estBloque());
-		joueur.getBataille().add(new Attaque(0, Type.ESSENCE));
+		joueur.getZoneDeJeu().getPileBataille().add(new Attaque(0, Type.ESSENCE));
 		System.out.println(joueur.estBloque());
-		joueur.getBataille().add(new Parade(0, Type.ESSENCE));
+		joueur.getZoneDeJeu().getPileBataille().add(new Parade(0, Type.ESSENCE));
 		System.out.println(joueur.estBloque());
-		joueur.getBottes().clear();
+		joueur.getZoneDeJeu().getBottes().clear();
 		System.out.println(joueur.estBloque());
-		joueur.getBataille().add(new Parade(0, Type.FEU));
+		joueur.getZoneDeJeu().getPileBataille().add(new Parade(0, Type.FEU));
 		System.out.println(joueur.estBloque());
 
 
